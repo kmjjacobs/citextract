@@ -13,3 +13,5 @@ pypi-upload-test: dist
 	python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
 pypi-upload: dist
 	python -m twine upload dist/*
+docs-html:
+	cd docs && make html
