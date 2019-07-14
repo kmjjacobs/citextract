@@ -7,4 +7,4 @@ url = "https://www.citextract.com/"
 author = 'Kevin Jacobs'
 author_email = 'kevin91nl@gmail.com'
 copyright_text = '2019, Kevin Jacobs'
-__version__ = '0.0.1'
+__version__ = '0.0.2'
