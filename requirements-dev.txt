@@ -3,4 +3,4 @@ pylint==2.3.1
 pylint-django==2.0.9
 pydocstyle==3.0.0
 flake8-print==3.1.0
-pytest==4.5.0
+pytest==5.0.1
