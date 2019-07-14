@@ -21,9 +21,9 @@ import sys
 sys.path.append('..')
 import citextract
 
-project = citextract.project_name
-copyright = citextract.copyright_text
-author = citextract.author
+project = citextract.project_settings.get('project_name')
+copyright = citextract.project_settings.get('copyright_text')
+author = citextract.project_settings.get('author')
 
 # The full version, including alpha/beta/rc tags
 release = citextract.__version__
@@ -34,7 +34,7 @@ release = citextract.__version__
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-   'sphinx.ext.autodoc'
+   'sphinx.ext.autodoc', 'sphinx.ext.napoleon'
 ]
 
 # Add any paths that contain templates here, relative to this directory.

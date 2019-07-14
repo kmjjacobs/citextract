@@ -4,10 +4,10 @@ citextract package
 Submodules
 ----------
 
-citextract.refxtract module
----------------------------
+citextract.pdf\_utils module
+----------------------------
 
-.. automodule:: citextract.refxtract
+.. automodule:: citextract.pdf_utils
    :members:
    :undoc-members:
    :show-inheritance:
