@@ -41,8 +41,8 @@ jobs:
           command: |
             . venv/bin/activate
             coverage run -m pytest
-            coverage report
-            coverage html
+            coverage report --omit="*site-packages*,tests/*"
+            coverage html --omit="*site-packages*,tests/*"
 
       - store_artifacts:
           path: htmlcov
