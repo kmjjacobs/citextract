@@ -10,7 +10,7 @@ services:
       - ./hooks:/tmp/hooks
 
   citextract:
-    image: kmjjacobs/citextract:0.0.1
+    image: kmjjacobs/citextract
     build: .
     volumes:
       - .:/app
