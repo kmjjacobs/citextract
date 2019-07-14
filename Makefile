@@ -5,9 +5,9 @@ docker-push: docker-build
 	docker push kmjjacobs/citextract
 check:
 	flake8
-	find . -iname "*.py" ! -wholename "*node_modules*" ! -wholename "*migrations*" ! -wholename "*.git*" ! -wholename "*test_data*" ! -wholename "*tests*" ! -wholename "*sandbox*" ! -wholename "*build*" ! -wholename "*docs*" | xargs pylint
+	find . -iname "*.py" ! -wholename "*.git*" ! -wholename "*test_data*" ! -wholename "*tests*" ! -wholename "*sandbox*" ! -wholename "*build*" ! -wholename "*docs*" | xargs pylint
 	pydocstyle --convention=numpy --match-dir "^(?!migrations|node_modules|\.git|test_data|tests|sandbox|docs|build).*"
-	pytest tests
+	python -m pytest tests
 pypi-build:
 	python setup.py sdist bdist_wheel
 pypi-upload-test: dist
