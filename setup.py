@@ -2,18 +2,20 @@
 
 import setuptools
 
+import citextract
+
 with open("README.md", "r") as fh:
     LONG_DESCRIPTION = fh.read()
 
 setuptools.setup(
-    name="citextract",
-    version="0.0.1",
-    author="Kevin Jacobs",
-    author_email="kevin91nl@gmail.com",
-    description="CiteXtract - Bringing structure to the papers on ArXiv.",
+    name=citextract.name,
+    version=citextract.__version__,
+    author=citextract.author,
+    author_email=citextract.author_email,
+    description=citextract.description,
     long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
-    url="https://www.citextract.com/",
+    url=citextract.url,
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
