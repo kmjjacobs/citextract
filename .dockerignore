@@ -1,0 +1,11 @@
+.git
+hooks/
+db.sqlite3
+test_database.sqlite3
+.idea
+static/
+db
+docs/
+*.egg-info
+build/
+dist/

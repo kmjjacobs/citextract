@@ -1,7 +1,9 @@
+"""Setup script for the CiteXtract project."""
+
 import setuptools
 
 with open("README.md", "r") as fh:
-    long_description = fh.read()
+    LONG_DESCRIPTION = fh.read()
 
 setuptools.setup(
     name="citextract",
@@ -9,7 +11,7 @@ setuptools.setup(
     author="Kevin Jacobs",
     author_email="kevin91nl@gmail.com",
     description="CiteXtract - Bringing structure to the papers on ArXiv.",
-    long_description=long_description,
+    long_description=LONG_DESCRIPTION,
     long_description_content_type="text/markdown",
     url="https://www.citextract.com/",
     packages=setuptools.find_packages(),

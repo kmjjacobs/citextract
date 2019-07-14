@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  githooks:
+    build:
+      context: .
+      dockerfile: Dockerfile.githooks
+    volumes:
+      - ./.git:/tmp/.git
+      - ./hooks:/tmp/hooks
+
+  citextract:
+    image: kmjjacobs/citextract:0.0.1
+    build: .
+    volumes:
+      - .:/app
+    stdin_open: true
+    tty: true
