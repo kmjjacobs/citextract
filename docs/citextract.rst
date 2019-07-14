@@ -11,6 +11,13 @@ citextract.pdf\_utils module
    :members:
    :undoc-members:
    :show-inheritance:
+citextract.refxtract module
+---------------------------
+
+.. automodule:: citextract.refxtract
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 
 Module contents
