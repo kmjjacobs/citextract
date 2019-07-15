@@ -1,6 +1,8 @@
 """PDF utilities for converting PDF to a usable format."""
+import datetime
 import os
 from io import StringIO
+from random import randint
 
 import requests
 from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
@@ -23,12 +25,13 @@ def convert_pdf_url_to_text(pdf_url):
         The text which was found in the PDF document.
     """
     response = requests.get(pdf_url)
-    with open('_tmp.pdf', 'wb') as out_file:
+    filename = '_tmp_' + datetime.datetime.utcnow().strftime('%Y%m%d%H%M%s%z') + '_' + str(randint(0, 100000)) + '.pdf'
+    with open(filename, 'wb') as out_file:
         out_file.write(response.content)
     try:
-        text = convert_pdf_file_to_text('_tmp.pdf')
+        text = convert_pdf_file_to_text(filename)
     finally:
-        os.remove('_tmp.pdf')
+        os.remove(filename)
     return text
 
 
