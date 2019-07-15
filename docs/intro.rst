@@ -53,7 +53,7 @@ This might produce the following output:
 
 .. code-block:: python
 
-  ['This is a test title.']
+  'This is a test title.'
 
 In the code, the TitleXtract model is initialized and the model parameters are downloaded from the internet. Then,
 the model is executed on an example text. It returns a string of the found title in the reference.
