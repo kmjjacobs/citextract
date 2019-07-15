@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.0.3
+-----
+- Bugfix of filename clashes for PDF to text method.
+
 0.0.2
 -----
 - Implementation of the core features.

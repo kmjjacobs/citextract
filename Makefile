@@ -11,8 +11,8 @@ check:
 pypi-build:
 	python setup.py sdist bdist_wheel
 pypi-upload-test: pypi-build
-	python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
+	python -m twine upload --skip-existing --repository-url https://test.pypi.org/legacy/ dist/*
 pypi-upload: pypi-build
-	python -m twine upload dist/*
+	python -m twine upload --skip-existing dist/*
 docs-html:
 	sphinx-apidoc -f -o docs . setup.py tests sandbox && cd docs && make html

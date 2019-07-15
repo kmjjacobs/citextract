@@ -25,7 +25,7 @@ def convert_pdf_url_to_text(pdf_url):
         The text which was found in the PDF document.
     """
     response = requests.get(pdf_url)
-    filename = '_tmp_' + datetime.datetime.utcnow().strftime('%Y%m%d%H%M%s%z') + '_' + str(randint(0, 100000)) + '.pdf'
+    filename = '_tmp_' + datetime.datetime.utcnow().strftime('%Y%m%d%H%M%S') + '_' + str(randint(0, 100000)) + '.pdf'
     with open(filename, 'wb') as out_file:
         out_file.write(response.content)
     try:

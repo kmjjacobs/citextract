@@ -7,7 +7,7 @@ project_settings = dict({
     'author': 'Kevin Jacobs',
     'author_email': 'kevin91nl@gmail.com',
     'copyright_text': '2019, Kevin Jacobs',
-    'version': '0.0.2',
+    'version': '0.0.3',
     'refxtract_version': '0.0.1',
     'titlextract_version': '0.0.1'
 })
