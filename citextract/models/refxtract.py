@@ -221,8 +221,8 @@ def preprocess_reference_text(text):
     try:
         splitpoint = text.lower().rindex('reference')
     except ValueError:
-        return False, '', text
-    while splitpoint and len(text) - splitpoint < 100:
+        splitpoint = False
+    while splitpoint and len(text) - splitpoint < 100 and 'reference' in text[:splitpoint].lower():
         text = text[:splitpoint]
         splitpoint = text.lower().rindex('reference')
     if not splitpoint:
@@ -251,10 +251,9 @@ def extract_references(text, preprocessor, model):
     list
         A list containing the found references.
     """
-    has_reference_section, reference_section, _ = preprocess_reference_text(text)
-    if not has_reference_section:
-        return []
-    fragment = preprocessor(reference_section)
+    has_reference_section, reference_section, non_reference_section = preprocess_reference_text(text)
+    reference_text = reference_section if has_reference_section else non_reference_section
+    fragment = preprocessor(reference_text)
     out = model(fragment.idx).argmax(dim=2).cpu().numpy()
 
     buffer = ''
