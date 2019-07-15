@@ -71,4 +71,4 @@ html_static_path = ['_static']
 
 master_doc = 'index'
 
-autodoc_mock_imports = ["torch", "pdfminer.six"]
+autodoc_mock_imports = ["torch", "pdfminer.six", "pdfminer"]

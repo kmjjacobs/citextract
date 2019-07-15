@@ -18,6 +18,7 @@ Extracting references
 In order to extract references, the following code is used:
 
 .. code-block:: python
+
    from citextract.models.refxtract import RefXtractor
 
    refxtractor = RefXtractor().load()
@@ -28,6 +29,7 @@ In order to extract references, the following code is used:
 This might produce the following output:
 
 .. code-block:: python
+
   ['[1] Jacobs, K. 2019. This is a test title. In Proceedings of Some Journal']
 
 In the code, the RefXtractor model is initialized and the model parameters are downloaded from the internet. Then,
