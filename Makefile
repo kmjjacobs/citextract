@@ -15,4 +15,4 @@ pypi-upload-test: dist
 pypi-upload: dist
 	python -m twine upload dist/*
 docs-html:
-	sphinx-apidoc -f -o docs . setup.py tests && cd docs && make html
+	sphinx-apidoc -f -o docs . setup.py tests sandbox && cd docs && make html

@@ -13,4 +13,4 @@ ignored-classes=numpy,torch
 disable=W0221,R0903,I1101,R0901,W0703,R0801,R0913
 
 [BASIC]
-good-names=name,project_settings,__version__
+good-names=name,project_settings,__version__,fc

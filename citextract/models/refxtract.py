@@ -1,13 +1,14 @@
 """RefXtract package."""
 import torch
 import torch.nn as nn
-import numpy as np
+
+from citextract.utils.model import load_model_params
 
 
 class BiRNN(nn.Module):
     """Bidirectional RNN model."""
 
-    def __init__(self, input_size, hidden_size, num_layers=1, num_classes=2, device='cpu'):
+    def __init__(self, input_size, hidden_size, num_layers=1, num_classes=2, device=None):
         """Initialize the Bidirectional RNN model.
 
         Parameters
@@ -28,7 +29,7 @@ class BiRNN(nn.Module):
         self.hidden_size = hidden_size
         self.num_layers = num_layers
         self.lstm = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True, bidirectional=True)
-        self.fc_layer = nn.Linear(hidden_size * 2, num_classes)
+        self.fc = nn.Linear(hidden_size * 2, num_classes)
 
     def forward(self, x):
         """Forward-propagate the given input.
@@ -51,7 +52,7 @@ class BiRNN(nn.Module):
         out, _ = self.lstm(x, (h0_variable, c0_variable))
 
         # Decode the hidden state of the last time step
-        out = nn.Softmax(dim=2)(self.fc_layer(out))
+        out = nn.Softmax(dim=2)(self.fc(out))
         return out
 
 
@@ -169,38 +170,35 @@ class RefXtractPreprocessor:
             The numerical representation of the given fragment.
         """
         mapped_fragment = ''.join(list(map(self.map_char, fragment)))
-        mapped_fragment_ids = np.array([2] + list(map(self.mapped_char_to_id, mapped_fragment)) + [3])
+        mapped_fragment_ids = [2] + list(map(self.mapped_char_to_id, mapped_fragment)) + [3]
         return RefXtractText(' ' + fragment + ' ',
-                             torch.from_numpy(mapped_fragment_ids).view(1, -1).long().to(self.device))
+                             torch.Tensor(mapped_fragment_ids).view(1, -1).long().to(self.device))
 
 
-def load_refxtract_model(path, preprocessor, device):
-    """Load the RefXtract model.
+def build_refxtract_model(preprocessor, embed_size=128, hidden_size=128, device=None):
+    """Build an instance of the RefXtract model.
 
     Parameters
     ----------
-    path : str
-        Path to the RefXtract model parameters.
     preprocessor : RefXtractPreprocessor
-        The preprocessor class to use.
+        The preprocessor to use.
+    embed_size : int
+        The number of embedding neurons to use.
+    hidden_size : int
+        The number of hidden neurons to use.
     device : torch.device
-        The device to use.
+        The device to compute on.
 
     Returns
     -------
-    nn.SequentialModel
-        The loaded PyTorch model instance.
+    torch.nn.modules.container.Sequential
+        A RefXtract model instance.
     """
-    embed_size = 128
-    hidden_size = 128
-    model = nn.Sequential(
+    return nn.Sequential(
         torch.nn.Embedding(preprocessor.get_vocab_size(), embed_size),
         torch.nn.Dropout(0.5),
         BiRNN(embed_size, hidden_size, 1, 4, device=device)
     )
-    model.load_state_dict(torch.load(path), strict=False)
-    model.eval()
-    return model.to(device)
 
 
 def preprocess_reference_text(text):
@@ -286,7 +284,7 @@ def extract_references(text, preprocessor, model):
 class RefXtractor:
     """RefXtractor class."""
 
-    def __init__(self, model, preprocessor):
+    def __init__(self, model=None, preprocessor=None, device=None):
         """Initialize the RefXtractor.
 
         Parameters
@@ -295,9 +293,31 @@ class RefXtractor:
             The model to use.
         preprocessor : RefXtractPreprocessor
             The preprocessor to use.
+        device : torch.device
+            The device to use.
         """
-        self.model = model
-        self.preprocessor = preprocessor
+        self.device = device
+        self.preprocessor = preprocessor if preprocessor else RefXtractPreprocessor(device=device)
+        self.model = model if model else build_refxtract_model(self.preprocessor, device=device)
+
+    def load(self, model_uri=None, ignore_cache=False):
+        """Load model parameters from the internet.
+
+        Parameters
+        ----------
+        model_uri : str
+            The model URI to load from.
+        ignore_cache : bool
+            When true, all caches are ignored and the model parameters are forcefully downloaded.
+
+        Returns
+        -------
+        RefXtractor
+            The wrapper itself.
+        """
+        self.model = load_model_params(self.model, 'refxtract', model_uri, ignore_cache=ignore_cache,
+                                       device=self.device)
+        return self
 
     def __call__(self, text):
         """Execute the model on a text.
