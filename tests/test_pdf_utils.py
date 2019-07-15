@@ -1,5 +1,5 @@
 from unittest import TestCase, mock
-from citextract.pdf_utils import convert_pdf_url_to_text
+from citextract.utils.pdf import convert_pdf_url_to_text
 from tests.utils import mocked_pdf_requests_get
 
 
