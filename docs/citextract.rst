@@ -1,17 +1,13 @@
 citextract package
 ==================
 
-Submodules
-----------
+Subpackages
+-----------
 
-citextract.refxtract module
----------------------------
+.. toctree::
 
-.. automodule:: citextract.refxtract
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
+   citextract.models
+   citextract.utils
 
 Module contents
 ---------------
