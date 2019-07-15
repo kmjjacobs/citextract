@@ -64,6 +64,6 @@ def load_model_params(model, model_name, model_uri, ignore_cache=False, device=N
                 out_file.write(data)
         if 0 < total_size != wrote:
             raise ValueError('Error downloading the model parameters from URL "' + url + '".')
-    model.load_state_dict(torch.load(path), strict=False)
+    model.load_state_dict(torch.load(path, map_location=lambda storage, loc: storage), strict=False)
     model.eval()
     return model.to(device)
