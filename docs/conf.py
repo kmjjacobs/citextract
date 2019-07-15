@@ -70,3 +70,5 @@ html_theme_options = {
 html_static_path = ['_static']
 
 master_doc = 'index'
+
+autodoc_mock_imports = ["torch", "pdfminer.six"]
