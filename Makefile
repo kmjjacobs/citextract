@@ -10,9 +10,9 @@ check:
 	python -m pytest tests
 pypi-build:
 	python setup.py sdist bdist_wheel
-pypi-upload-test: dist
+pypi-upload-test: pypi-build
 	python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
-pypi-upload: dist
+pypi-upload: pypi-build
 	python -m twine upload dist/*
 docs-html:
 	sphinx-apidoc -f -o docs . setup.py tests sandbox && cd docs && make html
